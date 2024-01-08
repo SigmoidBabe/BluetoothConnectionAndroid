@@ -1,0 +1,26 @@
+ thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true)
+                {
+                    try {
+                        Thread.sleep(20);
+                        try{
+                            inputStream = btSocket.getInputStream();
+                            inputStream.skip(inputStream.available());
+                            for (int i = 0; i < 4; i++) {
+                                byteArray[i] = (char) inputStream.read();
+                            }
+                            String kata= String.valueOf(byteArray);
+                            float nilai = Float.parseFloat(kata);
+                            //float b = (float)inputStream.read();
+                            //int a = Byte.toUnsignedInt(b);
+                            System.out.println(nilai);
+                        }
+                        catch (IOException e) { e.printStackTrace();}
+                    }
+                    catch(InterruptedException e){e.printStackTrace();}
+                }
+            }
+            });
+        thread.start();
